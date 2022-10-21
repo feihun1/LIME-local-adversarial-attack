@@ -66,13 +66,14 @@ if __name__ == '__main__':
     LP_ObjCat_Xception = load_and_predict(ILSVRC_Xception.net, ILSVRC_Xception.model, ILSVRC_Xception.image_size)
     LP_ObjCat_Inception = load_and_predict(ObjCat_101_Inception.net, ObjCat_101_Inception.model, ObjCat_101_Inception.image_size)
     
-    dataFile = '/Users/duanfeihun/Desktop/Model/data/x_init.mat'
+    dataFile = '../data/Caltech101_x_init.mat'
     x_init = scio.loadmat(dataFile)['init']
 
-    data_result, x_adv_list = ObjCat_101_Inception.fgsm_model(args, x_init, ismask = "CAM", isOnlyLabel = False)
+    #data_result, x_adv_list = ObjCat_101_Inception.fgsm_model(args, x_init, ismask = "CAM", isOnlyLabel = False)
+    data_result, x_adv_list = ObjCat_101_Inception.fgsm_model(args, x_init, ismask = "LIME", isOnlyLabel = False)
    
     data_result.to_csv("/Users/duanfeihun/Desktop/Model/data/store_fgsm_mask.csv", index=False)
-    Mask_UI = '/Users/duanfeihun/Desktop/Model/data/x_adv_fgsm_mask.mat'
+    Mask_UI = '../data/Caltech101_x_adv_fgsm_mask.mat'
     scio.savemat(Mask_UI, {'adv': x_adv_list})
 
 
